@@ -1,0 +1,6 @@
+.idea/
+target
+allure-results
+allure-report
+.DS_Store
+.allure/
