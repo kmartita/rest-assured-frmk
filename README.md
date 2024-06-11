@@ -4,27 +4,35 @@ This is the test automation project which supports:
 * REST Assured
 
 ## Table of Contents
-1. Setup local machine<br/>
-2. API Test Execution<br/>
-3. Project Structure<br/>
-4. Generate Allure REST Assured Report<br/>
+1. Project Overview<br/>
+2. Setup local machine<br/>
+3. API Test Execution<br/>
+4. Project Structure<br/>
+5. Generate Allure REST Assured Report<br/>
 
-## 1. Setup local machine
+## 1. Project Overview
+This project is designed to automate API testing using REST Assured framework. It provides a set of predefined test cases to ensure the API behaves as expected.
+
+## 2. Setup local machine
 #### This guide assumes the following:
 * Have Maven and Java 17 installed
 
-## 2. API Test Execution
+## 3. API Test Execution
 #### Maven Command Terminal
 Use Maven as a tool for building and managing the project.<br/>
+To execute all tests from **testng.xml**, use the following command:
+
+        > mvn test
+
 To execute test itself the next command line should be used:
-        
-        > mvn test -Dtest=[TestName]
+
+        > mvn test -Dtest={String}
 
 _Parameters:_ <br/>
 `-Dtest={String}` - name of Test class<br/>
 
-## 3. Project Structure
-The Maven project has a pom.xml file and a directory structure based on defined conventions:
+## 4. Project Structure
+The Maven project has a **pom.xml** file and a directory structure based on defined conventions:
 ```
 |——rest-assured-frmk
     |—-pom.xml
