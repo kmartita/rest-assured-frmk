@@ -38,22 +38,6 @@ public class TestData<Field extends Enum<Field> & HasName> {
         throw new RuntimeException(format("Object [%s] is not instance of String class", fields.get(field)));
     }
 
-    public Boolean getBoolean(Field field) {
-        if (fields.get(field) instanceof Boolean) {
-            return (Boolean) fields.get(field);
-        }
-        throw new RuntimeException(format("Object [%s] is not instance of Boolean class", fields.get(field)));
-    }
-
-    public LocalDateTime getLocalDateTime(Field field) {
-        if (fields.get(field) instanceof LocalDateTime) {
-            return (LocalDateTime) fields.get(field);
-        } else if (Objects.isNull(fields.get(field))) {
-            return null;
-        }
-        throw new RuntimeException(format("Object [%s] is not instance of LocalDateTime class", fields.get(field)));
-    }
-
     public Set<Field> includedFields() {
         return fields.keySet();
     }
@@ -64,18 +48,6 @@ public class TestData<Field extends Enum<Field> & HasName> {
 
     public static <Field extends Enum<Field> & HasName> TestDataBuilder<Field> builder(Class<Field> clazz) {
         return new TestDataBuilder<>();
-    }
-
-    public TestData<Field> edit(Map<Field, Object> fieldsToUpdate) {
-        TestDataBuilder<Field> builder = TestData.builder();
-
-        for (Field field : this.includedFields())
-            builder.setField(field, this.fields.get(field));
-
-        for (Map.Entry<Field, Object> map : fieldsToUpdate.entrySet())
-            builder.setField(map.getKey(), map.getValue());
-
-        return builder.build();
     }
 
     private TestData<Field> removeFields(Set<Field> fieldsToRemove) {
@@ -132,6 +104,17 @@ public class TestData<Field extends Enum<Field> & HasName> {
         return generate(new HashSet<>(Arrays.asList(fields)));
     }
 
+    public TestData<Field> edit(Map<Field, Object> fieldsToUpdate) {
+        TestDataBuilder<Field> builder = TestData.builder();
+
+        for (Field field : this.includedFields())
+            builder.setField(field, this.fields.get(field));
+
+        for (Map.Entry<Field, Object> map : fieldsToUpdate.entrySet())
+            builder.setField(map.getKey(), map.getValue());
+        return builder.build();
+    }
+
     public TestData<Field> edit(Field fieldToUpdate, Object valueToUpdate) {
         TestDataBuilder<Field> builder = TestData.builder();
 
@@ -139,16 +122,7 @@ public class TestData<Field extends Enum<Field> & HasName> {
             builder.setField(field, this.fields.get(field));
 
         builder.setField(fieldToUpdate, valueToUpdate);
-
         return builder.build();
-    }
-
-    public TestData<Field> sortByField() {
-        Map<Field, Object> resultByField = fields.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
-                        LinkedHashMap::new));
-
-        return new TestData<>(resultByField);
     }
 
     @Override
