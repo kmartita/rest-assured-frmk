@@ -5,5 +5,9 @@
         <packages>
             <package name="com.kmartita.spaces"/>
         </packages>
+
+        <!--<classes>
+            <class name="com.kmartita.spaces.UserUnableToCreateSpaceTest"/>
+        </classes>-->
     </test>
 </suite>

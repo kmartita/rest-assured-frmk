@@ -1,6 +1,7 @@
 package com.kmartita;
 
 import com.kmartita.server.ApiRequestExecutor;
+import com.kmartita.tools.data.HasId;
 import com.kmartita.tools.helpers.EntityService;
 import com.kmartita.tools.data.DataService;
 import com.kmartita.tools.data.Entity;
@@ -23,8 +24,6 @@ public class BaseTest {
     protected EntityService entityService;
     protected DataService<Team> team;
 
-    protected final String DELETE_SPACES_GROUP = "Space";
-
     @BeforeClass(alwaysRun = true)
     public void init() {
         apiService = new ApiRequestExecutor();
@@ -32,19 +31,11 @@ public class BaseTest {
         team = new DataService<>(Entity.TEAM, entityService.getTeamByUserName(USER_NAME));
     }
 
-    @BeforeGroups(value = DELETE_SPACES_GROUP, alwaysRun = true)
-    public void beforeSpaces() {
-        deleteSpacesFromTeam(team);
-    }
-
-    @Step("Delete all spaces from team: {team}")
-    private void deleteSpacesFromTeam(DataService<Team> team) {
-        List<Space> spaces = entityService.getSpaces(team);
-
-        if (!spaces.isEmpty()) {
-            spaces.stream()
-                    .map(Space::getId)
-                    .forEach(id -> apiService.delete(Entity.SPACE, id));
+    protected  <E extends HasId> void deleteEntities(List<E> entities, Entity entity) {
+        if (!entities.isEmpty()) {
+            entities.stream()
+                    .map(E::getId)
+                    .forEach(id -> apiService.delete(entity, id));
         }
     }
 }

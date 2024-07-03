@@ -2,27 +2,27 @@ package com.kmartita.server;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.kmartita.tools.JsonUtil;
-import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;
 
 public class ResponseHandler {
 
-    private final ValidatableResponse validatableResponse;
+    private final Response response;
 
-    public ResponseHandler(ValidatableResponse validatableResponse) {
-        this.validatableResponse = validatableResponse;
+    public ResponseHandler(Response response) {
+        this.response = response;
     }
 
     public ResponseHandler validate(ResponseSpecification responseSpecification) {
-        this.validatableResponse.spec(responseSpecification);
+        this.response.then().spec(responseSpecification).assertThat();
         return this;
     }
 
-    public <Response> Response extractAs(Class<Response> clazz) {
-        return JsonUtil.readJson(this.validatableResponse.extract().body().asString(), clazz);
+    public <R> R extractAs(Class<R> clazz) {
+        return JsonUtil.readJson(this.response.then().extract().body().asString(), clazz);
     }
 
-    public <Response> Response extractAs(TypeReference<Response> typeReference) {
-        return JsonUtil.readJson(this.validatableResponse.extract().body().asString(), typeReference);
+    public <R> R extractAs(TypeReference<R> typeReference) {
+        return JsonUtil.readJson(this.response.then().extract().body().asString(), typeReference);
     }
 }

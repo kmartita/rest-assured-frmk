@@ -26,7 +26,7 @@ public class ApiRequestBuilder {
                 .addHeader(HttpHeaders.AUTHORIZATION, BEARER)
                 .setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
-                .log(LogDetail.BODY)
+                .log(LogDetail.ALL)
                 .build();
     }
 

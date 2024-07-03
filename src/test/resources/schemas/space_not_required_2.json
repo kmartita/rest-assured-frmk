@@ -1,0 +1,183 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "color": {
+      "type": ["string", "null"]
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "avatar": {
+      "type": ["string", "null"]
+    },
+    "admin_can_manage": {
+      "type": ["boolean", "null"]
+    },
+    "statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "orderindex": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "status", "type", "orderindex", "color"]
+      }
+    },
+    "multiple_assignees": {
+      "type": "boolean"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "due_dates": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "start_date": {
+              "type": "boolean"
+            },
+            "remap_due_dates": {
+              "type": "boolean"
+            },
+            "remap_closed_due_date": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled", "start_date", "remap_due_dates", "remap_closed_due_date"]
+        },
+        "sprints": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "points": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "custom_items": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "checklists": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "zoom": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "milestones": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "remap_dependencies": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "dependency_warning": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "status_pies": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "emails": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": ["enabled"]
+        },
+        "time_tracking": {
+          "type": "object",
+          "properties": {
+            "default_to_billable": {
+              "type": "integer"
+            }
+          },
+          "required": ["default_to_billable"]
+        }
+      },
+      "required": [
+        "due_dates", "sprints", "points", "custom_items", "checklists", "zoom", "milestones",
+        "remap_dependencies", "dependency_warning", "status_pies", "emails", "time_tracking"
+      ]
+    },
+    "archived": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id", "name", "color", "private", "avatar", "admin_can_manage", "statuses",
+    "multiple_assignees", "features", "archived"
+  ]
+}
