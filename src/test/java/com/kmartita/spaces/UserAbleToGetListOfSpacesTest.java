@@ -20,7 +20,7 @@ import static com.kmartita.tools.helpers.response.ResponseSpecHelper.specOnSchem
 import static java.util.Optional.empty;
 import static org.hamcrest.Matchers.*;
 
-public class TestSecondGetAll extends BaseSpaceTest {
+public class UserAbleToGetListOfSpacesTest extends BaseSpaceTest {
 
     @BeforeClass(alwaysRun = true)
     public void beforeActions() {
@@ -30,7 +30,7 @@ public class TestSecondGetAll extends BaseSpaceTest {
     }
 
     @Test
-    public void test_() {
+    public void userIsAbleToGetListOfSpacesForValidTeamId() {
         ResponseSpecification specification = new ResponseSpecBuilder()
                 .expectStatusCode(STATUS_CODE_200)
                 .expectStatusLine(OK)
