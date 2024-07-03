@@ -9,9 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Set;
-
-import static com.kmartita.tools.Utils.getRequiredFields;
 import static com.kmartita.tools.helpers.StatusCodeData.BAD_REQUEST;
 import static com.kmartita.tools.helpers.StatusCodeData.STATUS_CODE_400;
 import static com.kmartita.tools.helpers.response.ResponseSpecHelper.specOnSchemaValidating;
@@ -23,10 +20,9 @@ public class UserUnableToCreateSpaceTest extends BaseSpaceTest {
     private TestData<SpaceFields> withoutNameData;
 
     @BeforeClass(alwaysRun = true)
-    public void generateData() {
-        Set<SpaceFields> requiredFields = getRequiredFields(SpaceFields.class);
-        testData = TestData.preGenerate(requiredFields).build();
-        withoutNameData = testData.removeFields(SpaceFields.NAME);
+    public void beforeActions() {
+        testData = generateSpaceDataWithRequiredFields();
+        withoutNameData = generateSpaceDataExcludingName();
 
         apiService.post(team, Entity.SPACE, testData)
                 .validate(specOnSchemaValidating("schemas/space_required.json"));

@@ -22,7 +22,7 @@ public class UserUnableToCreateSpaceWithInvalidResponseTest extends BaseSpaceTes
     private ResponseSpecification specByStringFailure;
 
     @BeforeClass(alwaysRun = true)
-    public void generateData() {
+    public void beforeActions() {
         TestData<SpaceFields> testData = generateSpaceDataExcludingFeatures();
         String text = "bad data";
 

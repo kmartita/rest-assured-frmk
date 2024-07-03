@@ -11,9 +11,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.*;
-
-import static com.kmartita.tools.Utils.getRequiredFields;
 import static com.kmartita.tools.helpers.StatusCodeData.*;
 import static com.kmartita.tools.helpers.response.ResponseSpecHelper.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,13 +23,9 @@ public class UserAbleToCreateSpaceTest extends BaseSpaceTest {
     private TestData<SpaceFields> onlyNameData;
 
     @BeforeClass(alwaysRun = true)
-    public void generateData() {
-        Set<SpaceFields> requiredFields = getRequiredFields(SpaceFields.class);
-        requiredData = TestData.preGenerate(requiredFields).build();
-
-        withoutFeaturesData = TestData.preGenerate(requiredFields)
-                .build()
-                .removeFields(SpaceFields.FEATURES);
+    public void beforeActions() {
+        requiredData = generateSpaceDataWithRequiredFields();
+        withoutFeaturesData = generateSpaceDataExcludingFeatures();
 
         onlyNameData = TestData.builder(SpaceFields.class)
                 .setField(SpaceFields.NAME, SpaceFields.NAME.generate())

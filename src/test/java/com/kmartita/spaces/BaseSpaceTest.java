@@ -37,4 +37,8 @@ public class BaseSpaceTest extends BaseTest {
     public TestData<SpaceFields> generateSpaceDataExcludingFeatures(){
         return generateSpaceDataWithRequiredFields().removeFields(SpaceFields.FEATURES);
     }
+
+    public TestData<SpaceFields> generateSpaceDataExcludingName(){
+        return generateSpaceDataWithRequiredFields().removeFields(SpaceFields.NAME);
+    }
 }
