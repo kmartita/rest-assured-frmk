@@ -48,5 +48,4 @@ public class UserUnableToCreateSpaceTest extends BaseSpaceTest {
                 .post(team, Entity.SPACE, data)
                 .validate(specByFailure);
     }
-
 }
