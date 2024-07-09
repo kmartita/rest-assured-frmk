@@ -4,6 +4,9 @@ import com.kmartita.tools.data.generation.HasName;
 import com.kmartita.tools.data.generation.models.TestData;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Collections;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -32,7 +35,7 @@ public class ResponseSpecHelper {
 
     public static ResponseSpecification specOnDeleting() {
         return new ResponseSpecBuilder()
-                .expectBody(emptyString())
+                .expectBody(StringUtils.EMPTY, equalTo(Collections.emptyMap()))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.kmartita.tools.data.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kmartita.tools.data.HasId;
 import lombok.Data;
@@ -38,6 +39,10 @@ public class Space implements HasId {
 
     @JsonProperty("archived")
     private Boolean archived;
+
+    @JsonIgnore
+    @JsonProperty("members")
+    private List<Member> members;
 
     @Data
     public static class Status {
@@ -226,6 +231,12 @@ public class Space implements HasId {
     public static class TimeTracking {
         @JsonProperty("default_to_billable")
         private Integer defaultToBillable;
+    }
+
+    @Data
+    public static class Member {
+        @JsonProperty("id")
+        private String id;
     }
 }
 

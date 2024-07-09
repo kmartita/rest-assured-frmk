@@ -40,7 +40,22 @@ public enum SpaceFields implements HasName, Generate {
             return TestData.preGenerate(fields)
                     .build();
         }
+    },
+
+    COLOR("color") {
+        @Override
+        public Object generate() {
+            return "#53c654";
+        }
+    },
+
+    PRIVATE("private") {
+        @Override
+        public Object generate() {
+            return false;
+        }
     };
+
 
     private final String name;
 

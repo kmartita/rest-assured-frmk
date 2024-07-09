@@ -26,7 +26,7 @@ public class ApiRequestBuilder {
                 .addHeader(HttpHeaders.AUTHORIZATION, BEARER)
                 .setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
-                .log(LogDetail.ALL)
+               // .log(LogDetail.ALL)
                 .build();
     }
 
@@ -57,6 +57,13 @@ public class ApiRequestBuilder {
                                                                                                      Entity entity,
                                                                                                      TestData<Field> model) {
         return get(data, entity)
+                .body(generateJson(model).toString());
+    }
+
+    public <Response extends HasId, Field extends Enum<Field> & HasName> RequestSpecification update(Entity entity,
+                                                                                                     String id,
+                                                                                                     TestData<Field> model) {
+        return getById(entity, id)
                 .body(generateJson(model).toString());
     }
 }
