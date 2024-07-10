@@ -5,7 +5,9 @@ import com.kmartita.tools.data.Entity;
 import com.kmartita.tools.data.bodyschemas.spaces.SpaceFields;
 import com.kmartita.tools.data.generation.models.TestData;
 import com.kmartita.tools.data.responses.Space;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.*;
@@ -18,6 +20,7 @@ import static com.kmartita.tools.helpers.response.ResponseSpecHelper.*;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.*;
 
+@Feature("Space")
 public class SpacesScenarioTest extends BaseTest {
 
     private final String ONE_SPACE_EXISTS = "One space exists";
@@ -84,25 +87,15 @@ public class SpacesScenarioTest extends BaseTest {
 
         String text = "bad data";
         TestData<SpaceFields> invalidBoolean = testData.edit(MULTIPLE_ASSIGNEES, text);
-        ResponseSpecification specByBooleanFailure = new ResponseSpecBuilder()
-                .expectStatusCode(STATUS_CODE_500)
-                .expectStatusLine(INTERNET_SERVER_ERROR)
-                .expectBody("err", equalTo(format("invalid input syntax for type boolean: \"%s\"", text)))
-                .build();
-
         TestData<SpaceFields> invalidString = testData.edit(NAME, 0.8);
-        ResponseSpecification specByStringFailure = new ResponseSpecBuilder()
-                .expectStatusCode(STATUS_CODE_400)
-                .expectStatusLine(BAD_REQUEST)
-                .expectBody("err", equalTo("Space name invalid"))
-                .build();
 
         return new Object[][]{
-                {invalidBoolean, specByBooleanFailure},
-                {invalidString, specByStringFailure},
+                {invalidBoolean, STATUS_CODE_500, INTERNET_SERVER_ERROR, format("invalid input syntax for type boolean: \"%s\"", text)},
+                {invalidString, STATUS_CODE_400, BAD_REQUEST, "Space name invalid"},
         };
     }
 
+    @Story("GET: /team/{team_id}/space")
     @Test(priority = 1, alwaysRun = true)
     public void userIsAbleToGetEmptyListOfSpacesForTeamIfItHasNoSpaces() {
         ResponseSpecification specification = new ResponseSpecBuilder()
@@ -116,6 +109,7 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specification);
     }
 
+    @Story("GET: /team/{team_id}/space")
     @Test(priority = 1, groups = ONE_SPACE_EXISTS, alwaysRun = true)
     public void userIsAbleToGetListOfSpacesForValidTeamId() {
         ResponseSpecification specification = new ResponseSpecBuilder()
@@ -131,6 +125,7 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specification);
     }
 
+    @Story("GET: /space/{space_id}")
     @Test(priority = 1, groups = ONE_SPACE_EXISTS, alwaysRun = true)
     public void userIsAbleToGetSpecificSpace() {
          ResponseSpecification specification = new ResponseSpecBuilder()
@@ -144,7 +139,9 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specification);
     }
 
+    @Story("POST: /team/{team_id}/space")
     @Test(priority = 2, dataProvider = POSITIVE_DATA, alwaysRun = true)
+    @Parameters({"Data:", "Path to schema file:"})
     public void userIsAbleToCreateSpaceByData(TestData<SpaceFields> data, String path) {
         ResponseSpecification specByRequirement = new ResponseSpecBuilder()
                 .expectBody("statuses.size()", equalTo(2))
@@ -175,7 +172,9 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specBySuccess);
     }
 
+    @Story("POST: /team/{team_id}/space")
     @Test(priority = 2, groups = ONE_SPACE_EXISTS, dataProvider = NEGATIVE_DATA, alwaysRun = true)
+    @Parameters({"Data:", "Error:"})
     public void userIsUnableToCreateSpaceByData(TestData<SpaceFields> data, String error) {
         ResponseSpecification specByFailure = new ResponseSpecBuilder()
                 .expectStatusCode(STATUS_CODE_400)
@@ -188,13 +187,25 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specByFailure);
     }
 
+    @Story("POST: /team/{team_id}/space")
     @Test(priority = 2, dataProvider = NEGATIVE_TYPE_DATA, alwaysRun = true)
-    public void userIsUnableToCreateSpaceByInvalidResponseData(TestData<SpaceFields> data, ResponseSpecification specByFailure) {
+    @Parameters({"Data:", "Status code:", "Status line:", "Error:"})
+    public void userIsUnableToCreateSpaceByInvalidResponseData(TestData<SpaceFields> data,
+                                                               int statusCode,
+                                                               String statusLine,
+                                                               String error) {
+        ResponseSpecification specByFailure = new ResponseSpecBuilder()
+                .expectStatusCode(statusCode)
+                .expectStatusLine(statusLine)
+                .expectBody("err", equalTo(error))
+                .build();
+
         apiService
                 .post(team, Entity.SPACE, data)
                 .validate(specByFailure);
     }
 
+    @Story("UPDATE: /space/{space_id}")
     @Test(priority = 3, groups = ONE_SPACE_EXISTS, alwaysRun = true)
     public void userIsAbleToUpdateSpecificSpaceWithPartialValidData() {
         String name = apiService
@@ -222,6 +233,7 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specification);
     }
 
+    @Story("UPDATE: /space/{space_id}")
     @Test(priority = 3, groups = ONE_SPACE_EXISTS, alwaysRun = true)
     public void userIsAbleToUpdateSpecificSpaceWithPossibilityOfSharingForOnlyOnePerson() {
         TestData<SpaceFields> updatedData = TestData
@@ -242,6 +254,7 @@ public class SpacesScenarioTest extends BaseTest {
                 .validate(specification);
     }
 
+    @Story("DELETE: /space/{space_id}")
     @Test(priority = 4, groups = ONE_SPACE_EXISTS, alwaysRun = true)
     public void userIsAbleToDeleteSpecificSpace() {
         ResponseSpecification specification = new ResponseSpecBuilder()
