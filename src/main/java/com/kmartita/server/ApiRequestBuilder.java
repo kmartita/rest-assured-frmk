@@ -11,22 +11,25 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpHeaders;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import static com.kmartita.tools.JsonUtil.generateJson;
 import static java.lang.String.*;
 
 public class ApiRequestBuilder {
 
-    private static final String BASE_URI = "https://api.clickup.com/api/v2/";
-    private static final String BEARER = "pk_74473614_GK9TWN8N5PK2GCAB9T3QF62NS1MQ2467";
+    private static final Dotenv ENV = Dotenv.configure().ignoreIfMissing().load();
+
+    private static final String TOKEN = ENV.get("TOKEN", System.getenv("TOKEN") != null ? System.getenv("TOKEN") : "defaultTokenValue");
+    private static final String BASE_URL = ENV.get("BASE_URL", System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "BASE_URL");
 
     private RequestSpecification baseRequest() {
         return new RequestSpecBuilder()
-                .setBaseUri(BASE_URI)
-                .addHeader(HttpHeaders.AUTHORIZATION, BEARER)
+                .setBaseUri(BASE_URL)
+                .addHeader(HttpHeaders.AUTHORIZATION, TOKEN)
                 .setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
-               // .log(LogDetail.ALL)
+                .log(LogDetail.ALL)
                 .build();
     }
 

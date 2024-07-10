@@ -1,6 +1,5 @@
 package com.kmartita.tools.helpers.response;
 
-import com.kmartita.tools.AllureUtils;
 import com.kmartita.tools.data.generation.HasName;
 import com.kmartita.tools.data.generation.models.TestData;
 import io.restassured.builder.ResponseSpecBuilder;
