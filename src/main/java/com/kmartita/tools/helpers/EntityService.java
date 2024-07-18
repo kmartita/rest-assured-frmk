@@ -3,6 +3,7 @@ package com.kmartita.tools.helpers;
 import com.kmartita.server.ApiRequestBuilder;
 import com.kmartita.tools.data.DataService;
 import com.kmartita.tools.data.Entity;
+import com.kmartita.tools.data.HasId;
 import com.kmartita.tools.data.responses.Space;
 import com.kmartita.tools.data.responses.Team;
 
@@ -20,8 +21,8 @@ public class EntityService {
         request = new ApiRequestBuilder();
     }
 
-    private <Response> List<Response> getEntities(Entity entity, Class<Response> entityType) {
-        List<Response> entities = given()
+    private <R> List<R> getEntities(Entity entity, Class<R> entityType) {
+        List<R> entities = given()
                 .spec(request.basePath(entity))
                 .when()
                 .get()
@@ -31,8 +32,8 @@ public class EntityService {
         return entities != null ? entities : Collections.emptyList();
     }
 
-    private <Response> List<Response> getEntities(Entity entity, DataService<Team> data, Class<Response> entityType) {
-        List<Response> entities = given()
+    private <E extends HasId, R> List<R> getEntities(Entity entity, DataService<E> data, Class<R> entityType) {
+        List<R> entities = given()
                 .spec(request.get(data, entity))
                 .when()
                 .get()
@@ -41,6 +42,7 @@ public class EntityService {
 
         return entities != null ? entities : Collections.emptyList();
     }
+
 
     public List<Team> getTeams() {
         return getEntities(Entity.TEAM, Team.class);
@@ -57,6 +59,17 @@ public class EntityService {
                         .filter(member -> member.getUser().getUsername().equals(userName))
                         .map(member -> team))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(format("The team with username '%s' does not exist", userName)));
+                .orElseThrow(() -> new RuntimeException(format("The team with username " +
+                                                               "'%s' does not exist", userName)));
+    }
+
+    public static void main(String[] args) {
+        Team team = new EntityService().getTeamByUserName("Marta Kravchuk");
+        System.out.println(team.getName());
+
+        /*DataService<Team> dataService_team = new DataService<>(Entity.TEAM, team);
+        List<Space> spaces = new EntityService().getSpaces(dataService_team);
+        System.out.println(spaces.size());
+        spaces.forEach(s -> System.out.println("Id: " + s.getId()));*/
     }
 }

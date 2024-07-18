@@ -15,13 +15,6 @@ import static org.hamcrest.Matchers.*;
 
 public class ResponseSpecHelper {
 
-    public static <Field extends Enum<Field> & HasName> ResponseSpecification specOnMatching(TestData<Field> data) {
-        return new ResponseSpecificationBuilder()
-                .withParsedFields(data)
-                .expectBody("id", notNullValue())
-                .build();
-    }
-
     public static ResponseSpecification specOnSchemaValidating(String path) {
         attachJsonFile(path);
 

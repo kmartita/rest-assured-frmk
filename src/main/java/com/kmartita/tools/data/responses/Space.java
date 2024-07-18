@@ -34,6 +34,7 @@ public class Space implements HasId {
     @JsonProperty("multiple_assignees")
     private Boolean multipleAssignees;
 
+    @JsonIgnore
     @JsonProperty("features")
     private Features features;
 
@@ -70,11 +71,17 @@ public class Space implements HasId {
         @JsonProperty("sprints")
         private Sprints sprints;
 
+        @JsonProperty("time_tracking")
+        private TimeTracking timeTracking;
+
         @JsonProperty("points")
         private Points points;
 
         @JsonProperty("custom_items")
         private CustomItems customItems;
+
+        @JsonProperty("priorities")
+        private Priorities priorities;
 
         @JsonProperty("tags")
         private Tags tags;
@@ -82,8 +89,8 @@ public class Space implements HasId {
         @JsonProperty("time_estimates")
         private TimeEstimates timeEstimates;
 
-        @JsonProperty("checklists")
-        private Checklists checklists;
+        @JsonProperty("check_unresolved")
+        private CheckUnresolved checkUnresolved;
 
         @JsonProperty("zoom")
         private Zoom zoom;
@@ -106,14 +113,8 @@ public class Space implements HasId {
         @JsonProperty("multiple_assignees")
         private MultipleAssignees multipleAssignees;
 
-        @JsonProperty("portfolios")
-        private Portfolios portfolios;
-
         @JsonProperty("emails")
         private Emails emails;
-
-        @JsonProperty("time_tracking")
-        private TimeTracking timeTracking;
     }
 
     @Data
@@ -150,6 +151,30 @@ public class Space implements HasId {
     }
 
     @Data
+    public static class Priorities {
+        @JsonProperty("enabled")
+        private Boolean enabled;
+
+        @JsonProperty("priorities")
+        private List<Priority> priorities;
+
+        @Data
+        public static class Priority {
+            @JsonProperty("color")
+            private String color;
+
+            @JsonProperty("id")
+            private String id;
+
+            @JsonProperty("orderindex")
+            private String orderIndex;
+
+            @JsonProperty("priority")
+            private String priority;
+        }
+    }
+
+    @Data
     public static class Tags {
         @JsonProperty("enabled")
         private Boolean enabled;
@@ -168,9 +193,18 @@ public class Space implements HasId {
     }
 
     @Data
-    public static class Checklists {
+    public static class CheckUnresolved {
         @JsonProperty("enabled")
         private Boolean enabled;
+
+        @JsonProperty("subtasks")
+        private Object subtasks;
+
+        @JsonProperty("checklists")
+        private Object checklists;
+
+        @JsonProperty("comments")
+        private Object comments;
     }
 
     @Data
@@ -216,12 +250,6 @@ public class Space implements HasId {
     }
 
     @Data
-    public static class Portfolios {
-        @JsonProperty("enabled")
-        private Boolean enabled;
-    }
-
-    @Data
     public static class Emails {
         @JsonProperty("enabled")
         private Boolean enabled;
@@ -229,6 +257,15 @@ public class Space implements HasId {
 
     @Data
     public static class TimeTracking {
+        @JsonProperty("enabled")
+        private Boolean enabled;
+
+        @JsonProperty("harvest")
+        private Boolean harvest;
+
+        @JsonProperty("rollup")
+        private Boolean rollup;
+
         @JsonProperty("default_to_billable")
         private Integer defaultToBillable;
     }
@@ -239,4 +276,3 @@ public class Space implements HasId {
         private String id;
     }
 }
-
