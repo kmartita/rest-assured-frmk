@@ -67,9 +67,9 @@ public class EntityService {
         Team team = new EntityService().getTeamByUserName("Marta Kravchuk");
         System.out.println(team.getName());
 
-        /*DataService<Team> dataService_team = new DataService<>(Entity.TEAM, team);
+        DataService<Team> dataService_team = new DataService<>(Entity.TEAM, team);
         List<Space> spaces = new EntityService().getSpaces(dataService_team);
         System.out.println(spaces.size());
-        spaces.forEach(s -> System.out.println("Id: " + s.getId()));*/
+        spaces.forEach(s -> System.out.println("Id: " + s.getId()));
     }
 }

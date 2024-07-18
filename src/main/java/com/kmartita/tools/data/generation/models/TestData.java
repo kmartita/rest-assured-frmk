@@ -3,7 +3,6 @@ package com.kmartita.tools.data.generation.models;
 import com.kmartita.tools.data.generation.Generate;
 import com.kmartita.tools.data.generation.HasName;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,34 +65,11 @@ public class TestData<Field extends Enum<Field> & HasName> {
         return removeFields(new HashSet<>(Arrays.asList(fields)));
     }
 
-    public TestData<Field> copyModel() {
-        TestDataBuilder<Field> builder = TestData.builder();
-
-        for (Field field : this.includedFields())
-            builder.setField(field, this.fields.get(field));
-        return builder.build();
-    }
-
-    public static <Field extends Enum<Field> & HasName> TestData<Field> copyModelFieldsToNewModel(TestData<Field> model, Set<Field> fields) {
-        Objects.requireNonNull(fields, SET_OF_FIELDS_TO_GENERATE_MODEL_MUST_NOT_BE_NULL);
-        TestDataBuilder<Field> newModelBuilder = TestData.builder();
-        fields.forEach(f -> newModelBuilder.setField(f, model.get(f)));
-        return newModelBuilder.build();
-    }
-
-    public static <Field extends Enum<Field> & HasName> TestData<Field> copyModelFieldsToNewModel(TestData<Field> model, Field... fields) {
-        return copyModelFieldsToNewModel(model, new HashSet<>(Arrays.asList(fields)));
-    }
-
     public static <Field extends Enum<Field> & Generate & HasName> TestDataBuilder<Field> preGenerate(Set<Field> fields) {
         Objects.requireNonNull(fields, SET_OF_FIELDS_TO_GENERATE_MODEL_MUST_NOT_BE_NULL);
         TestDataBuilder<Field> newModelBuilder = TestData.builder();
         fields.forEach(f -> newModelBuilder.setField(f, f.generate()));
         return newModelBuilder;
-    }
-
-    public <Field extends Enum<Field> & Generate & HasName> TestDataBuilder<Field> preGenerate(Field... fields) {
-        return preGenerate(new HashSet<>(Arrays.asList(fields)));
     }
 
     public <Field extends Enum<Field> & Generate & HasName> TestData<Field> generate(Set<Field> fields) {
