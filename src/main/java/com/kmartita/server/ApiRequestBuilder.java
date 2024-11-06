@@ -20,7 +20,7 @@ public class ApiRequestBuilder {
 
     private static final Dotenv ENV = Dotenv.configure().ignoreIfMissing().load();
 
-    private static final String TOKEN = ENV.get("TOKEN", System.getenv("TOKEN") != null ? System.getenv("TOKEN") : "defaultTokenValue");
+    private static final String TOKEN = (ENV.get("TOKEN") != null) ? ENV.get("TOKEN") : System.getenv("TOKEN");
     private static final String BASE_URL = ENV.get("BASE_URL", System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "BASE_URL");
 
     private RequestSpecification baseRequest() {
