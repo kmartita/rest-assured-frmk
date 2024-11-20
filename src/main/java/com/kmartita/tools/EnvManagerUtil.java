@@ -13,6 +13,7 @@ public class EnvManagerUtil {
 
     public static String TOKEN = getEnvOption("TOKEN");
     public static final String USER_NAME = getEnvOption("USER_NAME");
+    public static final String BASE_URL = getEnvOption("BASE_URL");
 
     private static String getEnvOption(String option) {
         String value = ENV.get(option);

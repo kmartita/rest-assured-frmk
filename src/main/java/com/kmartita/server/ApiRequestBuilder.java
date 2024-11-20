@@ -12,6 +12,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpHeaders;
 
+import static com.kmartita.tools.EnvManagerUtil.BASE_URL;
 import static com.kmartita.tools.EnvManagerUtil.TOKEN;
 import static com.kmartita.tools.JsonUtil.generateJson;
 import static java.lang.String.*;
@@ -20,7 +21,7 @@ public class ApiRequestBuilder {
 
     private RequestSpecification baseRequest() {
         return new RequestSpecBuilder()
-                .setBaseUri("https://api.clickup.com/api/v2/")
+                .setBaseUri(BASE_URL)
                 .addHeader(HttpHeaders.AUTHORIZATION, TOKEN)
                 .setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())

@@ -53,7 +53,7 @@ Creating API test scenarios involves defining test data and expected API behavio
 ## 5. API Test Execution
 #### Maven Command Terminal
 Maven is used as a tool for building and managing the project.<br/>
-Create a hidden `.env` file containing the parameters TOKEN and USER_NAME to configure the testing environment for api tests.
+Create a hidden `.env` file containing the parameters TOKEN, BASE_URL, and USER_NAME to configure the testing environment for api tests.
 To obtain your personal token, please refer to the [helper](https://help.clickup.com/hc/en-us/articles/6303426241687-Use-the-ClickUp-API).<br/>
 
 To execute all tests from `testng.xml`, use the following command:<br/>
