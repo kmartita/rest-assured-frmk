@@ -1,7 +1,7 @@
 .idea/
+.env
 target
 allure-results
 allure-report
 .DS_Store
 .allure/
-.env

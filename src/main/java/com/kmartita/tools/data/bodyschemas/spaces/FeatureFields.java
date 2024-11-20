@@ -7,7 +7,7 @@ import com.kmartita.tools.data.generation.models.TestData;
 
 import java.util.Set;
 
-import static com.kmartita.tools.Utils.getRequiredFields;
+import static com.kmartita.tools.ResourceUtil.getRequiredFields;
 import static java.lang.String.format;
 
 public enum FeatureFields implements HasName, Generate {

@@ -11,21 +11,16 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpHeaders;
-import io.github.cdimascio.dotenv.Dotenv;
 
+import static com.kmartita.tools.EnvManagerUtil.TOKEN;
 import static com.kmartita.tools.JsonUtil.generateJson;
 import static java.lang.String.*;
 
 public class ApiRequestBuilder {
 
-    private static final Dotenv ENV = Dotenv.configure().ignoreIfMissing().load();
-
-    private static final String TOKEN = (ENV.get("TOKEN") != null) ? ENV.get("TOKEN") : System.getenv("TOKEN");
-    private static final String BASE_URL = ENV.get("BASE_URL", System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "BASE_URL");
-
     private RequestSpecification baseRequest() {
         return new RequestSpecBuilder()
-                .setBaseUri(BASE_URL)
+                .setBaseUri("https://api.clickup.com/api/v2/")
                 .addHeader(HttpHeaders.AUTHORIZATION, TOKEN)
                 .setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
@@ -63,9 +58,9 @@ public class ApiRequestBuilder {
                 .body(generateJson(model).toString());
     }
 
-    public <Response extends HasId, Field extends Enum<Field> & HasName> RequestSpecification update(Entity entity,
-                                                                                                     String id,
-                                                                                                     TestData<Field> model) {
+    public <Field extends Enum<Field> & HasName> RequestSpecification update(Entity entity,
+                                                                             String id,
+                                                                             TestData<Field> model) {
         return getById(entity, id)
                 .body(generateJson(model).toString());
     }

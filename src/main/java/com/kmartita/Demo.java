@@ -1,17 +1,15 @@
 package com.kmartita;
 
-import com.kmartita.tools.Utils;
 import com.kmartita.tools.data.bodyschemas.spaces.DueDateFields;
 import com.kmartita.tools.data.bodyschemas.spaces.FeatureFields;
 import com.kmartita.tools.data.bodyschemas.spaces.SpaceFields;
 import com.kmartita.tools.data.bodyschemas.spaces.TimeTrackingFields;
 import com.kmartita.tools.data.generation.models.TestData;
-import com.kmartita.tools.data.generation.models.TestDataBuilder;
 
 import java.util.Set;
 
 import static com.kmartita.tools.JsonUtil.generateJson;
-import static com.kmartita.tools.Utils.getRequiredFields;
+import static com.kmartita.tools.ResourceUtil.getRequiredFields;
 
 public class Demo {
 

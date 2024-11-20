@@ -44,9 +44,9 @@ public class ApiRequestExecutor {
         return new ResponseHandler(response);
     }
 
-    public <R extends HasId, Field extends Enum<Field> & HasName> ResponseHandler put(Entity entity,
-                                                                                      String id,
-                                                                                      TestData<Field> model) {
+    public <Field extends Enum<Field> & HasName> ResponseHandler put(Entity entity,
+                                                                     String id,
+                                                                     TestData<Field> model) {
         response = given()
                 .spec(request.update(entity, id, model))
                 .when()

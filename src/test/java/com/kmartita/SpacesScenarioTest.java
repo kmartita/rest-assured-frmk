@@ -12,7 +12,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.*;
 
-import static com.kmartita.tools.Utils.getRequiredFields;
+import static com.kmartita.tools.ResourceUtil.getRequiredFields;
 import static com.kmartita.tools.data.bodyschemas.spaces.SpaceFields.*;
 import static com.kmartita.tools.helpers.StatusCodeData.*;
 import static com.kmartita.tools.helpers.StatusCodeData.BAD_REQUEST;

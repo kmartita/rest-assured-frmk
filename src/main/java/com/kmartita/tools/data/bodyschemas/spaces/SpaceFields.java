@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Locale;
 import java.util.Set;
 
-import static com.kmartita.tools.Utils.getRequiredFields;
+import static com.kmartita.tools.ResourceUtil.getRequiredFields;
 import static java.lang.String.format;
 
 public enum SpaceFields implements HasName, Generate {

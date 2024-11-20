@@ -6,18 +6,16 @@ import com.kmartita.tools.helpers.EntityService;
 import com.kmartita.tools.data.DataService;
 import com.kmartita.tools.data.Entity;
 import com.kmartita.tools.data.responses.Team;
-import io.github.cdimascio.dotenv.Dotenv;
 import io.qameta.allure.testng.AllureTestNg;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
 import java.util.List;
 
+import static com.kmartita.tools.EnvManagerUtil.USER_NAME;
+
 @Listeners({ AllureTestNg.class })
 public class BaseTest {
-
-    private static final Dotenv ENV = Dotenv.configure().ignoreIfMissing().load();
-    private static final String USER_NAME = ENV.get("USER_NAME", System.getenv("USER_NAME") != null ? System.getenv("USER_NAME") : "USER_NAME");
 
     protected ApiRequestExecutor apiService;
     protected EntityService entityService;

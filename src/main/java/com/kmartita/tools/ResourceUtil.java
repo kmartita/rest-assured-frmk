@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @UtilityClass
-public class Utils {
+public class ResourceUtil {
 
     public static <Field extends Enum<Field>> Set<Field> getRequiredFields(Class<Field> enumClass) {
         return Stream.of(enumClass.getEnumConstants())
