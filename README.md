@@ -76,4 +76,12 @@ To generate the report from existing Allure results you can use the following co
         > allure generate <directory-with-results>
 The report will be generated in the `allure-report` folder.<br/>
 
+#### Allure Report Overview
+![RestAssured_Allure](https://github.com/user-attachments/assets/d59e1106-5a89-46d6-b3a0-7a00a39c9704)
+
+
+https://github.com/user-attachments/assets/09adba30-8582-487d-b5e3-1b0e62b67896
+
+
+
 
