@@ -1,23 +1,25 @@
 # REST Assured API Demo Automation Project
-
 This is the test automation project which supports:<br/>
 * REST Assured
 
 ## Table of Contents
-1. Setup local machine<br/>
-2. Project Overview<br/>
-3. Project Structure<br/>
-4. Create API Test Scenarios<br/>
-5. API Test Execution<br/>
-6. Generate Allure REST Assured Report<br/>
+1. [Setup local machine](#one)
+2. [Project Overview](#two)
+3. [Project Structure](#three)
+4. [Create API Test Scenarios](#four)
+5. [API Test Execution](#five)
+6. [Generate Allure REST Assured Report](#six)
 
+<a id="one"></a>
 ## 1. Setup local machine
 #### This guide assumes the following:
 * Have **Maven** and **Java 17** installed.<br/>
 
+<a id="two"></a>
 ## 2. Project Overview
 This project is designed to automate API testing using the REST Assured framework. It provides a set of predefined test cases to ensure that the API behaves as expected for the ClickUp platform.<br/>
 
+<a id="three"></a>
 ## 3. Project Structure
 The Maven project has a `pom.xml` file and a directory structure based on defined conventions:<br/>
 ```
@@ -37,6 +39,7 @@ The `java` directories under main and test include the Java code for the applica
 The `pom.xml` file contains information on the project and configuration information for the Maven to build the project such as dependencies, build directory, source directory, test source directory, plugin, goals, etc.<br/>
 The `testng.xml` file is a configuration file that helps organize the test classes.<br/>
 
+<a id="four"></a>
 ## 4. Create API Test Scenarios
 Creating API test scenarios involves defining test data and expected API behavior. The `TestData` utility helps in generating and managing test data models, which can be customized as needed.<br/>
 
@@ -50,6 +53,7 @@ Creating API test scenarios involves defining test data and expected API behavio
 4. **Execute API Requests**:<br/>
    Perform API requests using the generated test data and validate responses against the defined specifications.<br/>
 
+<a id="five"></a>
 ## 5. API Test Execution
 #### Maven Command Terminal
 Maven is used as a tool to build and manage the project.<br/>
@@ -57,31 +61,33 @@ Create a hidden `.env` file containing the parameters TOKEN, BASE_URL, and USER_
 To obtain your personal token, please refer to the [helper](https://help.clickup.com/hc/en-us/articles/6303426241687-Use-the-ClickUp-API).<br/>
 
 To execute all tests from `testng.xml`, use the following command:<br/>
-
-        > mvn test
+```bash
+mvn test
+```
 To execute test itself the next command line should be used:<br/>
+```bash
+mvn test -Dtest=SpacesScenarioTest
+```
 
-        > mvn test -Dtest={String}
-_Parameters:_ <br/>
-`-Dtest={String}` - name of Test class<br/>
-
+<a id="six"></a>
 ## 6. Generate Allure REST Assured Report
 To generate a report by Allure after tests have finished, use the following command:<br/>
-
-        > allure serve 
+```bash
+allure serve 
+```
 This command immediately opens the generated report in the default browser.<br/>
 
 To generate the report from existing Allure results you can use the following command:<br/>
-        
-        > allure generate <directory-with-results>
+```bash
+allure generate
+```
 The report will be generated in the `allure-report` folder.<br/>
 
-#### Allure Report Overview
+#### Allure Report Overview:
 ![RestAssured_Allure](https://github.com/user-attachments/assets/d59e1106-5a89-46d6-b3a0-7a00a39c9704)
-
-
 https://github.com/user-attachments/assets/09adba30-8582-487d-b5e3-1b0e62b67896
 
 
-
+---
+#### Copyright (c) 2024 Marta Kravchuk under MIT License.
 
