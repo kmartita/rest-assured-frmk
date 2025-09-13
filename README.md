@@ -84,8 +84,10 @@ allure generate
 The report will be generated in the `allure-report` folder.<br/>
 
 #### Allure Report Overview:
-![RestAssured_Allure](https://github.com/user-attachments/assets/d59e1106-5a89-46d6-b3a0-7a00a39c9704)
-https://github.com/user-attachments/assets/09adba30-8582-487d-b5e3-1b0e62b67896
+<img width="2559" height="1331" alt="RestAssured_Allure" src="https://github.com/user-attachments/assets/4c1b5939-ae85-4161-9679-a73464328fbd" />
+
+https://github.com/user-attachments/assets/fc028356-7f43-41f8-865c-2254f4d1d6f3
+
 
 
 ---
